@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="root">
+  {{a.school}}
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+  //vue会循环data中的数据(数据劫持), 一次增加getter和setter;
+  let vm = new Vue({
+    el: "#root",
+    data: {
+      a: {}
+    }
+  })
+  vm.$set(vm.a,'school',1)
+
+  //1.使用变量是先要初始化;否则新加的属性不会导致页面属性;
+
+  //2.vm上有个方法: vm.$set(),此方法可以给对象添加响应式的数据变化;
+  //3.批量添加响应式属性的方法: 替换原对象;
+  vm.a = {school: 'asdfasdf', age: 6,address: 'asdf'}
+
+</script>
+
+
+</body>
+</html>

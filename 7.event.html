@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="root">
+  <input type="text" @keyup.enter="addList">点我啊</input>
+  <ul>
+    <li v-for="list in lists">{{list}}</li>
+  </ul>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    //methods和data中的数据都会放到vm中,名字不能重复;methods中的this指向的都是实例;
+    //事件绑定函数,如果不写括号,会自动传入事件元,如果写括号,需要手动传入$event事件属性;
+    let vm = new Vue({
+      el:'#root',
+      data: {
+        val:'',
+        lists: []
+      },
+      methods: {
+        addList(e) {
+          this.lists.push(e.target.value);
+        }
+      }
+    })
+</script>
+</body>
+</html>

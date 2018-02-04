@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="root">
+  <ul>
+    <li v-for="item in list">
+      {{item.name}}
+      <ul>
+        <li v-for="i in item.color">{{i}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: '#root',
+    data: {
+      list: [
+        {
+          name:'香蕉',color:['green','red']
+        },
+        {
+          name:'香蕉',color:['green','red']
+        },
+        {
+          name:'香蕉',color:['green','red']
+        },{
+          name:'香蕉',color:['green','red']
+        }
+      ]
+    }
+  })
+
+  //vue提供了v-for 指令
+
+
+
+</script>
+</body>
+</html>

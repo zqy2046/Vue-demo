@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="root">
+  <!--小胡子语法 moustache 表达式,可以放赋值 取值 三元表达式-->
+  {{msg === 'Hello world!' ? 1 : 0}}
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+  // Object.defineProperty
+  let vm = new Vue({
+    el: '#root',//告诉vue能管理哪个部分;
+    data: {//data中的数据会被vm所代理;
+      msg: 'Hello world!'
+    }
+  })
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
