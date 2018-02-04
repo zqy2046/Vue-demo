@@ -19,7 +19,7 @@
         <tbody>
         <tr>
           <th>
-            全选: <input type="checkbox" v-model="checkAll" @change="changeSelected">
+            全选: <input type="checkbox" v-model="checkAll">
           </th>
           <td>商品</td>
           <td>单价</td>
@@ -30,7 +30,6 @@
         <tr v-for="(product,index) in products">
           <td>
             <input type="checkbox"
-                   @change="changeSelect"
                    v-model="product.isSelected">
           </td>
           <td>
@@ -51,7 +50,7 @@
         </tr>
         <tr>
           <td colspan="6">
-            总价格:{{sum()|toFixed(2)}}
+            总价格:{{sum}}
           </td>
         </tr>
         </tbody>
@@ -69,33 +68,19 @@
   let vm = new Vue({
     el: '#root',
     created() {
-      //在数据初始化后会调用;this指向也是vm实例;钩子函数;
-      //抓们用于发送ajax请求的方法;
-      //axios 给予Promise;
-     this.getData();
+      this.getData();
     },
-    filters: {//自定义过滤器,不改变原属性的情况下,改变现实效果;
-      toFixed(input,param) {//这里的this是window,
+    filters: {
+      toFixed(input, param) {
         return "$" + input.toFixed(param);
       }
     },
     methods: {
       getData() {
-        axios({url:'./carts.json'}).then(res => {
+        axios({url: './carts.json'}).then(res => {
           this.products = res.data;
-          this.changeSelect();
-        },err => {
+        }, err => {
           console.log(err);
-        })
-      },
-      changeSelected() {
-        this.products.forEach(item => {
-          item.isSelected = this.checkAll;
-        })
-      },
-      changeSelect() {
-        this.checkAll = this.products.every(item=>{
-          return item.isSelected;
         })
       },
       deleteItem(curItem) {
@@ -103,19 +88,31 @@
           return item !== curItem;
         })
       },
-      sum() {//求总计函数;
-        let total ;
-        total = this.products.reduce((prev,next) => {
-          if(!next.isSelected) return prev; //如果当前没选中则不计算当前;
-          return prev+ next.productPrice *next.productCount;
-        },0)
-        return total;
-      }
     },
     data: {
       products: [],
-      checkAll : false, //是否全选;
     },
+    computed: {
+      sum() {
+        let total;
+        total = this.products.reduce((prev, next) => {
+          if (!next.isSelected) return prev; //如果当前没选中则不计算当前;
+          return prev + next.productPrice * next.productCount;
+        }, 0)
+      },
+      checkAll: {
+        get() {
+          return this.products.every(item => {
+            return item.isSelected;
+          });
+        },
+        set(val) {
+          this.products.forEach(item => {
+            item.isSelected = val;
+          })
+        }
+      }
+    }
   })
 
 
