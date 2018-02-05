@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="root" id="root">
+  <div class="grandParent" @click.capture="grandParent">
+    1
+    <div class="parent" @click="parent">
+      2
+      <div class="child" @click="child">3</div>
+    </div>
+  </div>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: '#root',
+    data: {},
+    methods: {
+      parent() {
+        console.log('parent')
+      },
+      child() {
+        console.log('child')
+      },
+      grandParent() {
+        console.log('grandParent')
+      }
+    }
+  })
+
+
+</script>
+</body>
+</html>
