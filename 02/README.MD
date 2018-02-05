@@ -1,4 +1,4 @@
-###指令
+### 指令
 - v-model,(如果是checkbox,select多选是数组,提供一个value属性)(radio,checkbox分组靠 v-model)
 -   修饰符 .number .lazy
 -   按键修饰符 .ener .ctral .keyCode
@@ -30,7 +30,7 @@
 -   e.srcElement && e.target;
 
 
-##全局 filters 过滤;
+## 全局 filters 过滤;
 ```
     filters:{
         (){}
