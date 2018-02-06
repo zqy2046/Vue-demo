@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active{
+      background-color: orange;
+    }
+    div {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <!--<router-link to="/home" tag="div">首页</router-link>-->
+  <!--<router-link to="/list" tag="div">列表</router-link>-->
+  <!--<router-link :to="{path:'/home'}" tag="div">首页</router-link>-->
+  <!--<router-link :to="{path:'/list',params:{a:1,c:2}}" tag="div">列表</router-link>-->
+  <transition>
+    <router-view class=""></router-view>
+  </transition>
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+  let Home = {
+    template:`<div>Home <button @click="toList">去列表</button></div>`,
+    methods: {
+      toList() {
+        this.$router.push('/list')
+      }
+    }
+  }
+  let List = {
+    template: `<div>List <button @click="back">返回</button></div>`,
+    methods: {
+      back() {this.$router.go(-1)}
+    }
+  }
+  let router = new VueRouter({
+    // mode:'history',
+    routes:[                             //路由映射表;
+      {path:'',component:Home},          //默认路由配置
+      {path:'/home',component: Home},
+      {path:'/list',component: List},
+      // {path:'*',component:Home},       //路径不会变,只是切换了组件, 想要的是路径变组件也切换;
+      {path:'*',redirect:'/home'}         //优化;
+    ],
+    linkActiveClass:'active'               //更改默认样式别名儿;
+  })
+  // Vue.use(VueRouter);
+  let vm =new Vue ({
+    el: '#root',
+    router,                                 //每个组件都有一个 $router(存方法)属性,和$route(存属性)属性
+  })
+
+
+</script>
+</body>
+</html>

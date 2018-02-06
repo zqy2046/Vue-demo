@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="root">
+  <parent></parent>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  //如果需要在一个组件中使用另一个组件,先保证使用的组件已创建,在需要引用这个组件的实例中通过components属性 注册这个组件, 组件必须在父级模板中通过标签使用;
+  let son = {
+    props: ['m'],
+    template: '<div>{{this.m}} <button @click="getMoney(300)">修改钱</button></div>',
+    methods:{
+      getMoney(val) {
+        this.$emit('child-msg',val)
+      }
+    }
+  }
+  let parent = {
+    data() {
+      return {
+        money: 1000,
+      }
+    },
+
+    methods:{
+      addMoney(val) {
+        this.money += val;
+      }
+    },
+    template: '<div>{{money}} <son :m="money" @child-msg="addMoney"></son></div>',
+    components: {son}
+  }
+
+  let vm = new Vue({
+    el: '#root',
+    data: {},
+    components: {
+      parent, son
+    }
+  })
+</script>
+</body>
+</html>
